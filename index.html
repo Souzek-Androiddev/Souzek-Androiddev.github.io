@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeLearn Hub</title>
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #1a1a2e;
+            --text-color: #ffffff;
+            --bg-color: #0f3460;
+            --hover-color: #e94560;
+        }
+
+        .dark-mode {
+            --primary-color: #00ffff;
+            --secondary-color: #1a1a2e;
+            --text-color: #ffffff;
+            --bg-color: #0f3460;
+            --hover-color: #e94560;
+        }
+
+        .light-mode {
+            --primary-color: #0066cc;
+            --secondary-color: #ffffff;
+            --text-color: #333333;
+            --bg-color: #f0f0f0;
+            --hover-color: #ff4500;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: linear-gradient(to right, var(--secondary-color), var(--bg-color));
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color); }
+            to { text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color); }
+        }
+
+        nav ul {
+            display: flex;
+            list-style-type: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .hamburger, .mode-toggle {
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            margin-left: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .hamburger:hover, .mode-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .view-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.3);
+            color: var(--text-color);
+            border: none;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .view-toggle:hover {
+            background: rgba(0, 255, 255, 0.5);
+        }
+
+        .hero {
+            text-align: center;
+            margin: 50px 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .courses {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .course {
+            background: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            width: 280px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: scaleIn 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .course:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .course img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .course:hover img {
+            transform: scale(1.1);
+        }
+
+        .course h3 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .course-btn {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .course-btn:hover {
+            background: var(--hover-color);
+            color: var(--text-color);
+        }
+
+        .course-info {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .course:hover .course-info {
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .courses {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .course {
+                width: 100%;
+            }
+
+            .course-info {
+                position: static;
+                background: none;
+                color: var(--text-color);
+                padding: 10px 0;
+            }
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background: var(--secondary-color);
+            padding: 20px;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .side-menu.show {
+            left: 0;
+        }
+
+        .side-menu ul {
+            list-style-type: none;
+        }
+
+        .side-menu ul li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .side-menu ul li img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .side-menu ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .side-menu ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .close-menu:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">CodeLearn Hub</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger">☰</button>
+            <button class="mode-toggle">🌓</button>
+        </header>
+
+        <div class="hero">
+            <h1>Learn Programming with CodeLearn Hub made with ❤️ TheNooB</h1>
+            <p>Master the most in-demand programming language and IT skills with our interactive courses.</p>
+        </div>
+
+        <div class="courses">
+            <div class="course">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">
+                <h3>Python</h3>
+                <div class="course-info">
+                    <p>Learn Python, a versatile language for web development, data science, and more. Perfect for beginners and advanced programmers alike.</p>
+                    <a href="python.html" class="course-btn">Start Learning</a>
+                </div>
+            </div>
+            <div class="course">
+                <img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java">
+                <h3>Java</h3>
+                <div class="course-info">
+                    <p>Master Java, the language powering enterprise applications and Android development. Build robust, scalable software solutions.</p>
+                    <a href="java.html" class="course-btn">Start Learning</a>
+                </div>
+            </div>
+            <div class="course">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="C++">
+                <h3>C++</h3>
+                <div class="course-info">
+                    <p>Dive into C++, the powerhouse behind high-performance applications and game development. Unlock the potential of system-level programming.</p>
+                    <a href="cpp.html" class="course-btn">Start Learning</a>
+                </div>
+            </div>
+            <div class="course">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML">
+                <h3>HTML</h3>
+                <div class="course-info">
+                    <p>Learn HTML, the backbone of web development. Create structured, semantic content for the modern web.</p>
+                    <a href="html.html" class="course-btn">Start Learning</a>
+                </div>
+            </div>
+            <div class="course">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS">
+                <h3>CSS</h3>
+                <div class="course-info">
+                    <p>Master CSS to bring your web designs to life. Learn layout techniques, animations, and responsive design principles.</p>
+                    <a href="css.html" class="course-btn">Start Learning</a>
+                </div>
+            </div>
+            <div class="course">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" alt="JavaScript">
+                <h3>JavaScript</h3>
+                <div class="course-info">
+                    <p>Explore JavaScript, the language of the web. Build interactive, dynamic websites and powerful web applications.</p>
+                    <a href="javascript.html" class="course-btn">Start Learning</a>
+                </div>
+            </div>
+            <div class="course">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" alt="Reverse Engineering (Android)">
+                <h3>Reverse Engineering (Android)</h3>
+                <div class="course-info">
+                    <p>Dive into Android reverse engineering. Learn to analyze and understand Android applications' inner workings.</p>
+                    <a href="android-re.html" class="course-btn">Start Learning</a>
+                </div>
+            </div>
+            <div class="course">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Bash_Logo_Colored.svg" alt="Bash">
+                <h3>Bash</h3>
+                <div class="course-info">
+                    <p>Master Bash scripting for powerful command-line operations and automation in Unix-like operating systems.</p>
+                    <a href="bash.html" class="course-btn">Start Learning</a>
+                </div>
+            </div>
+            <div class="course">
+                <img src="https://upload.wikimedia.org/wikipedia/en/3/35/Microsoft_Office_Logo_%282019-present%29.svg" alt="MS Office">
+                <h3>MS Office</h3>
+                <div class="course-info">
+                    <p>Master Microsoft Office suite including Word, Excel, PowerPoint, and more. Boost your productivity and office skills.</p>
+                    <a href="ms-office.html" class="course-btn">Start Learning</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-menu">
+        <button class="close-menu">×</button>
+        <ul>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">
+                <a href="python.html">Python</a>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java">
+                <a href="java.html">Java</a>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="C++">
+                <a href="cpp.html">C++</a>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML">
+                <a href="html.html">HTML</a>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS">
+                <a href="css.html">CSS</a>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" alt="JavaScript">
+                <a href="javascript.html">JavaScript</a>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" alt="Reverse Engineering (Android)">
+                <a href="android-re.html">Reverse Engineering (Android)</a>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Bash_Logo_Colored.svg" alt="Bash">
+                <a href="bash.html">Bash</a>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/3/35/Microsoft_Office_Logo_%282019-present%29.svg" alt="MS Office">
+                <a href="ms-office.html">MS Office</a>
+            </li>
+        </ul>
+    </div>
+
+    <button class="view-toggle">Switch View</button>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const sideMenu = document.querySelector('.side-menu');
+        const closeMenu = document.querySelector('.close-menu');
+        const viewToggle = document.querySelector('.view-toggle');
+        const modeToggle = document.querySelector('.mode-toggle');
+        let isMobileView = false;
+
+        hamburger.addEventListener('click', () => {
+            sideMenu.classList.toggle('show');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            sideMenu.classList.remove('show');
+        });
+
+        viewToggle.addEventListener('click', () => {
+            isMobileView = !isMobileView;
+            document.body.style.width = isMobileView ? '480px' : '100%';
+            document.body.style.margin = isMobileView ? '0 auto' : '0';
+            viewToggle.textContent = isMobileView ? 'Desktop View' : 'Mobile View';
+        });
+
+        modeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Make view-toggle draggable
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+
+        viewToggle.addEventListener('mousedown', dragStart);
+        document.addEventListener('mouseup', dragEnd);
+        document.addEventListener('mousemove', drag);
+
+        function dragStart(e) {
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+
+            if (e.target === viewToggle) {
+                isDragging = true;
+            }
+        }
+
+        function dragEnd(e) {
+            initialX = currentX;
+            initialY = currentY;
+
+            isDragging = false;
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+
+                xOffset = currentX;
+                yOffset = currentY;
+
+                setTranslate(currentX, currentY, viewToggle);
+            }
+        }
+
+        function setTranslate(xPos, yPos, el) {
+            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+        }
+
+        // Show course info on hover for desktop
+        const courses = document.querySelectorAll('.course');
+        courses.forEach(course => {
+            course.addEventListener('mouseenter', () => {
+                if (window.innerWidth > 768) {
+                    const info = course.querySelector('.course-info');
+                    info.style.bottom = '0';
+                }
+            });
+            course.addEventListener('mouseleave', () => {
+                if (window.innerWidth > 768) {
+                    const info = course.querySelector('.course-info');
+                    info.style.bottom = '-100%';
+                }
+            });
+        });
+    </script>
+</body
+</html>
